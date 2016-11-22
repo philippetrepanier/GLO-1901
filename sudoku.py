@@ -1,3 +1,7 @@
+##Ce fichier est notre fichier principal qui écoute les appels de l'externe. Il faut utiliser argparse pour que
+# l'utilisateur puisse choisir la méthode d'entrée. Le fichier défini les classes principales et import les autres
+
+
 ## Solve Every Sudoku Puzzle
 
 ## See http://norvig.com/sudoku.html
