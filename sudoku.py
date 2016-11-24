@@ -19,4 +19,4 @@ if args.automatique:
     print("Mode Automatique")
 print("Sudoku Pythonesque")
 
-sudoku.lire()
+sudoku.imprimmer()
