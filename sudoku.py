@@ -11,6 +11,9 @@ parser.add_argument("fichier", type=argparse.FileType('r'))
 
 args = parser.parse_args(["testies.txt"])
 
+
+
+
 sudoku = lecture.Fichier(args.fichier.readlines())
 
 if args.manuel:
