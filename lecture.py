@@ -17,12 +17,24 @@ class Fichier:
     def imprimmer(self):
         print(self.lignesfichier)
 
-    def convertirEnGrille(self):
-        nombregrille = len(self.lignesfichier) // 81
-        for i in nombregrille:
-
 
 class Grille:
     def __init__(self, lignesfichier):
+        # Définitions de concepts généraux
+        self.colonnes = "ABCDEFGHI"
+        self.lignes = "123456789"
+        self.nombres = self.lignes
+        self.cases = self.produitCroise(self.lignes, self.colonnes)
+
         self.dictionnaire = 2
         self.valeurs = ""
+    def convertirEnGrille(self):
+        abs(1)
+
+    def produitCroise(self, a, b):
+        produit = []
+        for i in a:
+            for v in b:
+                produit.append(i+v)
+        return produit
+
