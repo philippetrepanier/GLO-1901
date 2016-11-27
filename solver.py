@@ -38,6 +38,13 @@ class Grille:
         print(self.cases)
         print(self.cases['A']['1'])
 
+    # Permet de vérifier si toute la grille contient un élément
+    def resolu(self):
+        for l, v in self.cases.items():
+            for c, n in v.items():
+                if len(n) != 1:
+                    return False
+
 
 
 
