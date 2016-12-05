@@ -54,6 +54,26 @@ class Grille:
                 else:
                     continue
         # Fixer les valeurs dont les possibilités sont certaines
+        for val in self.colonnes:
+            for l, v in self.cases.items():
+                compte = 0
+                for c, n in v.items():
+                    if val in n:
+                        compte += 1
+                    if compte = 2:
+                        break
+                if compte = 1:
+                    ana
+
+
+
+
+                compte = 0
+                for l2, n2 in v.items():
+                    if n2 in n:
+                        compte += 1
+                if compte == 0:
+                    grilleréduite[l2][c] = self.cases[l2][c].replace(str(grilleréduite[l][c]), '')
 
         self.cases = grilleréduite
 
