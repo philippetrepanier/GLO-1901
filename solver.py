@@ -23,7 +23,9 @@ class Grille:
         self.reduire()
 
     def reduire(self):
+        grille_réduite = {}
         for l, v in self.cases.items():
+            grille_réduite[l] = {}
             for c, n in v.items():
                 if len(n) == 1:
                     for l2 in self.lignes:
@@ -31,9 +33,9 @@ class Grille:
                             if self.cases[l][c] == self.cases[l2][c]:
                                 return False
                             else:
+                                grille_réduite[l2][c] =
                                 print(self.cases[l][c], self.cases[l2][c])
-                        if len(self.cases[l2][c]) == 1 and (l, c) != (l2, c):
-                            d = 0
+
 
                 else:
                     continue
