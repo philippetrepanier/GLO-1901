@@ -34,14 +34,32 @@ class Grille:
                             if self.cases[l][c] == self.cases[l2][c]:
                                 return False
                             else:
-                                grille_réduite[l2][c] = self.cases[l2][c].replace(str(self.cases[l][c]), 'pou')
-                    for c2 in self
+                                grille_réduite[l2][c] = self.cases[l2][c].replace(str(self.cases[l][c]), '')
+                    for c2 in self.colonnes:
+                        if c2 != c:
+                            if self.cases[l][c] == self.cases[l][c2]:
+                                return False
+                            else:
+                                grille_réduite[l][c2] = self.cases[l][c2].replace(str(self.cases[l][c]), '')
                 else:
                     continue
 
+        self.cases = grille_réduite
 
-        print(grille_réduite)
-        return grille_réduite
+    def __str__(self):
+        compte = 0
+        res = "     1  2  3   4  5  6   7  8  9 \n   \u2554" + "\u2550" * 9 + "\u2566" + "\u2550" * 9 + "\u2566" + \
+              "\u2550" * 9 + "\u2557" + '\n'
+        for l in self.lignes:
+            liste = []
+            for c in self.colonnes:
+                liste.append(self.cases[l][c])
+            res += ' ' + l + ' \u2551 {0[0]}  {0[1]}  {0[2]} \u2551 {0[3]}  {0[4]}  {0[5]} \u2551 {0[6]}  {0[7]}  {0[8]} \u2551'.format(liste) + '\n'
+            compte += 1
+            if compte == 3 or compte == 6:
+                res += 3 * ' ' + "\u2560" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + "\u2563" + "\n"
+        res += "   \u255A" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u255D"
+        return res
 
 
     # Permet de vérifier si toute la grille contient un élément
