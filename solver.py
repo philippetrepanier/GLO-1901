@@ -1,7 +1,7 @@
 # Ce fichier est responsable de la résolution du sudoku par backtracking
 #petite fleur sèche
 print("Solver")
-
+import itertools
 
 class Grille:
     def __init__(self, lignesfichier):
@@ -9,23 +9,24 @@ class Grille:
         self.colonnes = "123456789"
         self.lignes = "ABCDEFGHI"
         self.cases = {}
-        self.grillevide = {}
+        l3 = ["ABC", "DEF", "GHI"]
+        c3 = ["123", "456", "789"]
+        self.carrés = list(itertools.product(l3, c3))
 
         compte = 0
         for l in self.lignes:
             self.cases[l] = {}
-            self.grillevide[l] ={}
             for c in self.colonnes:
                 if lignesfichier[compte] == "." or lignesfichier[compte] == "0":
                     self.cases[l][c] = self.colonnes
                 else:
                     self.cases[l][c] = lignesfichier[compte]
-                self.grillevide[l][c] = ''
                 compte += 1
         self.reduire()
 
     def reduire(self):
-        grille_réduite = self.grillevide.copy()
+        grilleréduite = self.cases.copy()
+        # Réduire les valeurs dont on est sur du positionnement initial
         for l, v in self.cases.items():
             for c, n in v.items():
                 if len(n) == 1:
@@ -34,17 +35,27 @@ class Grille:
                             if self.cases[l][c] == self.cases[l2][c]:
                                 return False
                             else:
-                                grille_réduite[l2][c] = self.cases[l2][c].replace(str(self.cases[l][c]), '')
+                                grilleréduite[l2][c] = self.cases[l2][c].replace(str(grilleréduite[l][c]), '')
                     for c2 in self.colonnes:
                         if c2 != c:
                             if self.cases[l][c] == self.cases[l][c2]:
                                 return False
                             else:
-                                grille_réduite[l][c2] = self.cases[l][c2].replace(str(self.cases[l][c]), '')
+                                grilleréduite[l][c2] = self.cases[l][c2].replace(str(grilleréduite[l][c]), '')
+                    for l3, c3 in self.carrés:
+                        if c in c3 and l in l3:
+                            for l4 in l3:
+                                for c4 in c3:
+                                    if l4 != l and c4 != c:
+                                        if self.cases[l][c] == self.cases[l4][c4]:
+                                            return False
+                                        else:
+                                            grilleréduite[l4][c4] = self.cases[l4][c4].replace(str(grilleréduite[l][c]), '')
                 else:
                     continue
+        # Fixer les valeurs dont les possibilités sont certaines
 
-        self.cases = grille_réduite
+        self.cases = grilleréduite
 
     def __str__(self):
         compte = 0
