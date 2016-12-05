@@ -1,8 +1,9 @@
-import affichage
+#import affichage
 import solver
 import lecture
-import console
+#import console
 import argparse
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--manuel", action="store_true", help="Mode manuel")
@@ -24,4 +25,6 @@ print("Sudoku Pythonesque")
 
 sudoku.imprimmer()
 grille1 = solver.Grille(sudoku.lignesfichier)
-print(grille1.cases)
+grille1.reduire()
+print(grille1)
+#print(grille1.cases)
