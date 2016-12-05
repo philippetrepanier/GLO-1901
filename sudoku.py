@@ -25,5 +25,6 @@ print("Sudoku Pythonesque")
 
 sudoku.imprimmer()
 grille1 = solver.Grille(sudoku.lignesfichier)
+grille1.reduire()
 print(grille1)
 #print(grille1.cases)
