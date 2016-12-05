@@ -4,6 +4,7 @@ import lecture
 import console
 import argparse
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-m", "--manuel", action="store_true", help="Mode manuel")
 parser.add_argument("-a", "--automatique", action="store_true", help="Mode automatique")
