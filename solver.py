@@ -8,15 +8,14 @@ class Grille:
         # Définitions de concepts généraux
         self.colonnes = "123456789"
         self.lignes = "ABCDEFGHI"
-        self.nombres = self.colonnes
-        self.cases ={}
+        self.cases = {}
 
         compte = 0
         for l in self.lignes:
             self.cases[l] = {}
             for c in self.colonnes:
                 if lignesfichier[compte] == "." or lignesfichier[compte] == "0":
-                    self.cases[l][c] = self.nombres
+                    self.cases[l][c] = self.colonnes
                 else:
                     self.cases[l][c] = lignesfichier[compte]
                 compte += 1
@@ -24,19 +23,29 @@ class Grille:
         self.reduire()
 
     def reduire(self):
+        grille_réduite = {}
         for l, v in self.cases.items():
+            grille_réduite[l] = {}
             for c, n in v.items():
                 if len(n) == 1:
                     for l2 in self.lignes:
-                        print(l2, c, self.cases[l2][c])
-                        if len(self.cases[l2][c]) == 1 and (l, c) != (l2, c):
-                            self.cases[l][c] = self.cases[l][c].replace(str(self.cases[l2][c]), 'pou')
-                            print('POURR')
+                        if l2 != l:
+                            if self.cases[l][c] == self.cases[l2][c]:
+                                return False
+                            else:
+                                grille_réduite[l2][c] =
+                                print(self.cases[l][c], self.cases[l2][c])
+
+
+                else:
+                    continue
+
+
+                            #self.cases[l][c] = self.cases[l][c].replace(str(self.cases[l2][c]), 'pou')
+                            #print('POURR')
 
                     # for carrés'''
 
-        print(self.cases)
-        print(self.cases['A']['1'])
 
     # Permet de vérifier si toute la grille contient un élément
     def resolu(self):
