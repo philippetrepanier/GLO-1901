@@ -9,23 +9,24 @@ class Grille:
         self.colonnes = "123456789"
         self.lignes = "ABCDEFGHI"
         self.cases = {}
+        self.grillevide = {}
 
         compte = 0
         for l in self.lignes:
             self.cases[l] = {}
+            self.grillevide[l] ={}
             for c in self.colonnes:
                 if lignesfichier[compte] == "." or lignesfichier[compte] == "0":
                     self.cases[l][c] = self.colonnes
                 else:
                     self.cases[l][c] = lignesfichier[compte]
+                self.grillevide[l][c] = ''
                 compte += 1
-
         self.reduire()
 
     def reduire(self):
-        grille_réduite = {}
+        grille_réduite = self.grillevide.copy()
         for l, v in self.cases.items():
-            grille_réduite[l] = {}
             for c, n in v.items():
                 if len(n) == 1:
                     for l2 in self.lignes:
@@ -33,18 +34,14 @@ class Grille:
                             if self.cases[l][c] == self.cases[l2][c]:
                                 return False
                             else:
-                                grille_réduite[l2][c] =
-                                print(self.cases[l][c], self.cases[l2][c])
-
-
+                                grille_réduite[l2][c] = self.cases[l2][c].replace(str(self.cases[l][c]), 'pou')
+                    for c2 in self
                 else:
                     continue
 
 
-                            #self.cases[l][c] = self.cases[l][c].replace(str(self.cases[l2][c]), 'pou')
-                            #print('POURR')
-
-                    # for carrés'''
+        print(grille_réduite)
+        return grille_réduite
 
 
     # Permet de vérifier si toute la grille contient un élément
