@@ -1,7 +1,7 @@
-import affichage
+#import affichage
 import solver
 import lecture
-import console
+#import console
 import argparse
 
 
