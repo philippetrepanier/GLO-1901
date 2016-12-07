@@ -1,14 +1,14 @@
 # README #
 
-Yo guys! C'est le sudoku python 
+Résolveur de sudoku fait en python 3
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### Options ###
 
-### What is this repository for? ###
+* manuel
+* automatique
+* Graphique
+* Console
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
 
 ### How do I get set up? ###
 
