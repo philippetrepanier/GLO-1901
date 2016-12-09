@@ -1,7 +1,7 @@
-# Ce fichier est responsable de la résolution du sudoku par backtracking
-#petite fleur sèche
-print("Solver")
 import itertools
+''' Ce fichier est responsable de la résolution du sudoku par backtracking '''
+print("Solver")
+
 
 class Grille:
     def __init__(self, lignesfichier):
@@ -80,8 +80,8 @@ class Grille:
 
     def __str__(self):
         compte = 0
-        res = "     1  2  3   4  5  6   7  8  9 \n   \u2554" + "\u2550" * 9 + "\u2566" + "\u2550" * 9 + "\u2566" + \
-              "\u2550" * 9 + "\u2557" + '\n'
+        res = "     1  2  3   4  5  6   7  8  9 \n   \u2554" + "\u2550" * 9 + \
+              "\u2566" + "\u2550" * 9 + "\u2566" + "\u2550" * 9 + "\u2557" + '\n'
         for l in self.lignes:
             liste = []
             for c in self.colonnes:
@@ -89,7 +89,8 @@ class Grille:
             res += ' ' + l + ' \u2551 {0[0]}  {0[1]}  {0[2]} \u2551 {0[3]}  {0[4]}  {0[5]} \u2551 {0[6]}  {0[7]}  {0[8]} \u2551'.format(liste) + '\n'
             compte += 1
             if compte == 3 or compte == 6:
-                res += 3 * ' ' + "\u2560" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + "\u2563" + "\n"
+                res += 3 * ' ' + "\u2560" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + \
+                       "\u256C" + "\u2550" * 9 + "\u2563" + "\n"
         res += "   \u255A" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u255D"
         return res
 
@@ -98,7 +99,8 @@ class Grille:
         pass
 
 
-    # Permet de vérifier si toute la grille contient un élément et qu'il est différent pour chaque colonne
+    # Permet de vérifier si toute la grille contient un élément et
+    # qu'il est différent pour chaque colonne
     # Il faut aussi vérifier en ligne et en carrés
     def resolu(self):
         verifligne = 0
@@ -112,8 +114,4 @@ class Grille:
             if verifcol != 511:
                 return False
         return True
-
-
-
-
 
