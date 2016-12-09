@@ -1,10 +1,20 @@
-print("Lecture")
-
-##Lecture du fichier
+"""
+    Fichier respônsable de la lecture des grilles
+"""
+__auteur__ = "IDUL"
+__date__ = "2016-12-09"
+__coequipiers__ = "IDUL", "IDUL"
 
 
 class Fichier:
+    """
+        Lecture des lignes du fichier grille. Sépare les grilles multiples
+    """
     def __init__(self, fichiergrille):
+        """
+            Lors de l'initialisation certaines conditions sont vérifiées
+        :param fichiergrille: passe le fichier grille à la fonction
+        """
         self.lignesfichier = ''
         for i in fichiergrille:
             self.lignesfichier += ''.join(i).strip()

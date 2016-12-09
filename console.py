@@ -1,5 +1,7 @@
 print("Console")
-
+"""
+    Deprecated, le contenu est maintenant directement dans la classe grille
+"""
 class Console:
     def __str__(self, reponse):
         count = 0

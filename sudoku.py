@@ -1,8 +1,17 @@
-#import affichage
+"""
+    Fichier principal du projet Sudoku!
+"""
+__auteur__ = "IDUL"
+__date__ = "2016-12-09"
+__coequipiers__ = "IDUL", "IDUL"
+
+import argparse
+
 import solver
 import lecture
-#import console
-import argparse
+
+# import affichage
+
 
 
 parser = argparse.ArgumentParser()
