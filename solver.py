@@ -53,30 +53,30 @@ class Grille:
                                             grilleréduite[l4][c4] = self.cases[l4][c4].replace(str(grilleréduite[l][c]), '')
                 else:
                     continue
-        '''
-        # Fixer les valeurs dont les possibilités sont certaines
-        for val in self.colonnes:
-            for l, v in self.cases.items():
-                compte = 0
-                for c, n in v.items():
-                    if val in n:
-                        compte += 1
-                    if compte = 2:
-                        break
-                if compte = 1:
-                    ana
-
-
-
-
-                compte = 0
-                for l2, n2 in v.items():
-                    if n2 in n:
-                        compte += 1
-                if compte == 0:
-                    grilleréduite[l2][c] = self.cases[l2][c].replace(str(grilleréduite[l][c]), '')
-'''
         self.cases = grilleréduite
+
+    def reduire2(self):
+        for ligne, colonne in self.carrés:
+            if ligne is None:
+                ligne = self.lignes
+            if colonne is None:
+                colonne = self.colonnes
+            for num in self.colonnes:
+                compte = 0
+                lo = 'Z'
+                co = '0'
+                for l in ligne:
+                    for c in colonne:
+                        n = self.cases[l][c]
+                        if num in n:
+                            compte += 1
+                            co = c
+                            lo = l
+                        else:
+                            continue
+                if compte == 1:
+                    self.cases[lo][co] = str(num)
+        self.reduire()
 
     def __str__(self):
         compte = 0
@@ -95,6 +95,7 @@ class Grille:
 
 
     def recherche(self):
+        pass
 
 
     # Permet de vérifier si toute la grille contient un élément
