@@ -1,10 +1,23 @@
+"""
+    Ce fichier est responsable de la résolution du sudoku par backtracking
+"""
+__auteur__ = "IDUL"
+__date__ = "2016-12-09"
+__coequipiers__ = "IDUL", "IDUL"
+
 import itertools
-''' Ce fichier est responsable de la résolution du sudoku par backtracking '''
-print("Solver")
 
 
 class Grille:
+    """
+        Classe grille qui est responsable des opérations sur la grille et du stockage des valeurs
+    """
     def __init__(self, lignesfichier):
+        """
+            Lors de l'initialisation d'un objet Grille les données sont mises en mémoire
+            sous forme de dictionnaire afin de pouvoir les manipuler plus facilement
+        :param lignesfichier: Lignes du fichier sources (longueur maxi de 81 char)
+        """
         # Définitions de concepts généraux
         self.colonnes = "123456789"
         self.lignes = "ABCDEFGHI"
@@ -24,9 +37,37 @@ class Grille:
                 compte += 1
         self.reduire()
 
+    def __str__(self):
+        """
+            La fonction permet de faire un print(objet) afin d'afficher la grille en console
+        :return: permet de retourner une grille avec mise en page
+        """
+        compte = 0
+        res = "     1  2  3   4  5  6   7  8  9 \n   \u2554" + "\u2550" * 9 + \
+              "\u2566" + "\u2550" * 9 + "\u2566" + "\u2550" * 9 + "\u2557" + '\n'
+        for l in self.lignes:
+            liste = []
+            for c in self.colonnes:
+                liste.append(self.cases[l][c])
+            res += ' ' + l + ' \u2551 {0[0]}  {0[1]}  {0[2]} \u2551 {0[3]}  {0[4]}  {0[5]} \u2551 {0[6]}  {0[7]}  {0[8]} \u2551'.format(
+                liste) + '\n'
+            compte += 1
+            if compte == 3 or compte == 6:
+                res += 3 * ' ' + "\u2560" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + \
+                       "\u256C" + "\u2550" * 9 + "\u2563" + "\n"
+        res += "   \u255A" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u255D"
+        return res
+
+    def recherche(self):
+        pass
+
     def reduire(self):
+        """
+            Fonction qui réduit les possibilités de la grille en prenant en considération
+            les valeurs qui sont exactes et qui ont une seule place possible.
+        :return: Retourne False si des conditions de la grille ne sont respectées
+        """
         grilleréduite = self.cases.copy()
-        # Réduire les valeurs dont on est sur du positionnement initial
         for l, v in self.cases.items():
             for c, n in v.items():
                 if len(n) == 1:
@@ -56,6 +97,9 @@ class Grille:
         self.cases = grilleréduite
 
     def reduire2(self):
+        """
+            Fonction qui fixe les valeurs dans les carrés dont la possibilité est certaine
+        """
         for ligne, colonne in self.carrés:
             if ligne is None:
                 ligne = self.lignes
@@ -78,31 +122,15 @@ class Grille:
                     self.cases[lo][co] = str(num)
         self.reduire()
 
-    def __str__(self):
-        compte = 0
-        res = "     1  2  3   4  5  6   7  8  9 \n   \u2554" + "\u2550" * 9 + \
-              "\u2566" + "\u2550" * 9 + "\u2566" + "\u2550" * 9 + "\u2557" + '\n'
-        for l in self.lignes:
-            liste = []
-            for c in self.colonnes:
-                liste.append(self.cases[l][c])
-            res += ' ' + l + ' \u2551 {0[0]}  {0[1]}  {0[2]} \u2551 {0[3]}  {0[4]}  {0[5]} \u2551 {0[6]}  {0[7]}  {0[8]} \u2551'.format(liste) + '\n'
-            compte += 1
-            if compte == 3 or compte == 6:
-                res += 3 * ' ' + "\u2560" + "\u2550" * 9 + "\u256C" + "\u2550" * 9 + \
-                       "\u256C" + "\u2550" * 9 + "\u2563" + "\n"
-        res += "   \u255A" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u255D"
-        return res
-
-
-    def recherche(self):
-        pass
-
-
-    # Permet de vérifier si toute la grille contient un élément et
-    # qu'il est différent pour chaque colonne
-    # Il faut aussi vérifier en ligne et en carrés
     def resolu(self):
+        """
+            Permet de vérifier si toute la grille contient un élément et qu'il est différent
+            pour chaque colonne.
+            La vérification est faite avec une somme vérifiant l'unicité de la solution.
+
+            Il faut implanter une vérification similaire en ligne et en carrés
+        :return: Retourne False si il y a contradiction, sinon True
+        """
         verifligne = 0
         for l, v in self.cases.items():
             verifcol = 0
