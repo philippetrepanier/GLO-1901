@@ -98,12 +98,20 @@ class Grille:
         pass
 
 
-    # Permet de vérifier si toute la grille contient un élément
+    # Permet de vérifier si toute la grille contient un élément et qu'il est différent pour chaque colonne
+    # Il faut aussi vérifier en ligne et en carrés
     def resolu(self):
+        verifligne = 0
         for l, v in self.cases.items():
+            verifcol = 0
             for c, n in v.items():
                 if len(n) != 1:
                     return False
+                else:
+                    verifcol += 2 ** (int(n) - 1)
+            if verifcol != 511:
+                return False
+        return True
 
 
 
