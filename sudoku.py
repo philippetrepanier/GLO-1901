@@ -6,6 +6,7 @@ __date__ = "2016-12-09"
 __coequipiers__ = "IDUL", "IDUL"
 
 import argparse
+import time
 
 import solver
 import lecture
@@ -30,13 +31,19 @@ if args.manuel:
     print("Mode Manuel")
 if args.automatique:
     print("Mode Automatique")
-print("Sudoku Pythonesque")
+print("Sudoku Pythonesque \n \n")
 
-sudoku.imprimmer()
+start_time = time.time()
+# sudoku.imprimmer()
 grille1 = solver.Grille(sudoku.lignesfichier)
-grille1.reduire()
+print("Grile originale \n \n " + str(grille1))
+
+grille1.cases = grille1.reduire(grille1.reduire2(grille1.reduire(grille1.cases)))
+
+print("Grille réduite \n \n" + str(grille1) + "\n \n")
+grille1.recherche(grille1.cases)
+print("Temps totales d'exécution du programme : %.4f secondes" % (time.time() - start_time))
+print(('OK'))
 print(grille1)
-grille1.reduire2()
-print(grille1)
-print(grille1.resolu())
+#print(grille1.resolu())
 #print(grille1.cases)

@@ -6,6 +6,7 @@ __date__ = "2016-12-09"
 __coequipiers__ = "IDUL", "IDUL"
 
 import itertools
+from copy import deepcopy
 
 
 class Grille:
@@ -35,7 +36,7 @@ class Grille:
                 else:
                     self.cases[l][c] = lignesfichier[compte]
                 compte += 1
-        self.reduire()
+        self.cases = self.reduire()
 
     def __str__(self):
         """
@@ -58,60 +59,61 @@ class Grille:
         res += "   \u255A" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u2569" + "\u2550" * 9 + "\u255D"
         return res
 
-    def recherche(self):
-        pass
-
-    def reduire(self):
+    def reduire(self, grilleréduite=None):
         """
             Fonction qui réduit les possibilités de la grille en prenant en considération
             les valeurs qui sont exactes et qui ont une seule place possible.
         :return: Retourne False si des conditions de la grille ne sont respectées
         """
-        grilleréduite = self.cases.copy()
-        for l, v in self.cases.items():
+        if grilleréduite is None:
+            grilleréduite = deepcopy(self.cases)
+        if grilleréduite is False:
+            return False
+        for l, v in grilleréduite.items():
             for c, n in v.items():
                 if len(n) == 1:
                     for l2 in self.lignes:
                         if l2 != l:
-                            if self.cases[l][c] == self.cases[l2][c]:
+                            if grilleréduite[l][c] == grilleréduite[l2][c]:
                                 return False
                             else:
-                                grilleréduite[l2][c] = self.cases[l2][c].replace(str(grilleréduite[l][c]), '')
+                                grilleréduite[l2][c] = grilleréduite[l2][c].replace(str(grilleréduite[l][c]), '')
                     for c2 in self.colonnes:
                         if c2 != c:
-                            if self.cases[l][c] == self.cases[l][c2]:
+                            if grilleréduite[l][c] == grilleréduite[l][c2]:
                                 return False
                             else:
-                                grilleréduite[l][c2] = self.cases[l][c2].replace(str(grilleréduite[l][c]), '')
+                                grilleréduite[l][c2] = grilleréduite[l][c2].replace(str(grilleréduite[l][c]), '')
                     for l3, c3 in self.carrés:
                         if c in c3 and l in l3:
                             for l4 in l3:
                                 for c4 in c3:
                                     if l4 != l and c4 != c:
-                                        if self.cases[l][c] == self.cases[l4][c4]:
+                                        if grilleréduite[l][c] == grilleréduite[l4][c4]:
                                             return False
                                         else:
-                                            grilleréduite[l4][c4] = self.cases[l4][c4].replace(str(grilleréduite[l][c]), '')
+                                            grilleréduite[l4][c4] = grilleréduite[l4][c4].replace(
+                                                str(grilleréduite[l][c]), '')
                 else:
                     continue
-        self.cases = grilleréduite
+        return grilleréduite
 
-    def reduire2(self):
+    def reduire2(self, grilleréduite=None):
         """
             Fonction qui fixe les valeurs dans les carrés dont la possibilité est certaine
         """
+        if grilleréduite is None:
+            grilleréduite = deepcopy(self.cases)
+        if grilleréduite is False:
+            return False
         for ligne, colonne in self.carrés:
-            if ligne is None:
-                ligne = self.lignes
-            if colonne is None:
-                colonne = self.colonnes
             for num in self.colonnes:
                 compte = 0
                 lo = 'Z'
                 co = '0'
                 for l in ligne:
                     for c in colonne:
-                        n = self.cases[l][c]
+                        n = grilleréduite[l][c]
                         if num in n:
                             compte += 1
                             co = c
@@ -119,10 +121,40 @@ class Grille:
                         else:
                             continue
                 if compte == 1:
-                    self.cases[lo][co] = str(num)
-        self.reduire()
+                    grilleréduite[lo][co] = str(num)
+        return grilleréduite
 
-    def resolu(self):
+    def recherche(self, grille=None):
+        if grille is None:
+            grille = self.cases
+        if grille is False:
+            return False
+        if self.resolu(grille):
+            self.cases = grille
+            return True
+        (elem, minimumligne, minimumcol) = self.minimum(grille)
+        for num in elem:
+            griller = deepcopy(grille)
+            griller[minimumligne][minimumcol] = str(num)
+            self.recherche(self.reduire(self.reduire2(self.reduire(griller))))
+
+    def minimum(self, grille=None):
+        if grille is None:
+            grille = self.cases
+        if grille is False:
+            return False
+        minimumligne = "0"
+        minimumcol = "Z"
+        lenmini = 9
+        for l, v in grille.items():
+            for c, n in v.items():
+                if lenmini > len(n) > 1:
+                    lenmini = len(n)
+                    minimumcol = c
+                    minimumligne = l
+        return grille[minimumligne][minimumcol], minimumligne, minimumcol
+
+    def resolu(self, grille=None):
         """
             Permet de vérifier si toute la grille contient un élément et qu'il est différent
             pour chaque colonne.
@@ -131,8 +163,12 @@ class Grille:
             Il faut implanter une vérification similaire en ligne et en carrés
         :return: Retourne False si il y a contradiction, sinon True
         """
+        if grille is None:
+            grille = self.cases
+        if grille is False:
+            return False
         verifligne = 0
-        for l, v in self.cases.items():
+        for l, v in grille.items():
             verifcol = 0
             for c, n in v.items():
                 if len(n) != 1:
