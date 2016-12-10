@@ -132,11 +132,17 @@ class Grille:
         if self.resolu(grille):
             self.cases = grille
             return True
+        compte = 0
+        for l, v in grille.items():
+            for c, n in v.items():
+                compte += len(n)
+        if compte == 81:
+            return False
         (elem, minimumligne, minimumcol) = self.minimum(grille)
         for num in elem:
             griller = deepcopy(grille)
             griller[minimumligne][minimumcol] = str(num)
-            self.recherche(self.reduire(self.reduire2(self.reduire(griller))))
+            self.recherche(self.reduire2(self.reduire(griller)))
 
     def minimum(self, grille=None):
         if grille is None:
