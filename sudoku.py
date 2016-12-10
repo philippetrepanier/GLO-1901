@@ -44,5 +44,12 @@ grille1.recherche(grille1.cases)
 print("Temps totales d'exécution du programme : %.4f secondes" % (time.time() - start_time))
 print(('OK'))
 print(grille1)
+
+for l in grille1.lignes:
+    for c in grille1.colonnes:
+        print(grille1.cases[l][c], end="")
+
+
+
 #print(grille1.resolu())
 #print(grille1.cases)
