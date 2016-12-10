@@ -166,17 +166,26 @@ class Grille:
             pour chaque colonne.
             La vérification est faite avec une somme vérifiant l'unicité de la solution.
 
-            Il faut implanter une vérification similaire en ligne et en carrés
+            Il faut implanter une vérification similaire en carrés
         :return: Retourne False si il y a contradiction, sinon True
         """
         if grille is None:
             grille = self.cases
         if grille is False:
             return False
-        verifligne = 0
         for l, v in grille.items():
-            verifcol = 0
+            verifligne = 0
             for c, n in v.items():
+                if len(n) != 1:
+                    return False
+                else:
+                    verifligne += 2 ** (int(n) - 1)
+            if verifligne != 511:
+                return False
+        for c2 in self.colonnes:
+            verifcol = 0
+            for l2 in self.lignes:
+                n = grille[l2][c2]
                 if len(n) != 1:
                     return False
                 else:
