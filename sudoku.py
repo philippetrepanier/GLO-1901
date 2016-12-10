@@ -7,7 +7,6 @@ __coequipiers__ = "IDUL", "IDUL"
 
 import argparse
 import time
-
 import solver
 import lecture
 
