@@ -37,7 +37,7 @@ start_time = time.time()
 grille1 = solver.Grille(sudoku.lignesfichier)
 print("Grile originale \n \n " + str(grille1))
 
-grille1.cases = grille1.reduire(grille1.reduire2(grille1.reduire(grille1.cases)))
+grille1.cases = grille1.reduire(grille1.reduire2(grille1.cases))
 
 print("Grille réduite \n \n" + str(grille1) + "\n \n")
 grille1.recherche(grille1.cases)
