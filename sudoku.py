@@ -12,44 +12,35 @@ import lecture
 
 # import affichage
 
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--manuel", action="store_true", help="Mode manuel")
-parser.add_argument("-a", "--automatique", action="store_true", help="Mode automatique")
+parser = argparse.ArgumentParser(
+    description=("Sudoku pythonesque! Ce programme permet de résoudre des Sudokus. "
+                 "Les options utiles sont les suivantes:")
+)
+parser.add_argument("-m", "--mode", choices=['manuel', 'automatique'], default='manuel',
+                    help=("Choix du mode: En mode manuel l'utilisateur entre les valeurs du Sudoku. "
+                          "En mode automatique le programme génère la solution. "))
+parser.add_argument("-a", "--affichage", choices=['textuel', 'graphique'], default='textuel',
+                    help=("Choix du mode: En mode textuel l'utilisateur intéragit directement "
+                          "avec la console. En mode graphique un affichage permet de visualiser "
+                          "la grille de Sudoku"))
 parser.add_argument("fichier", type=argparse.FileType('r'))
 
-args = parser.parse_args(["testies.txt"])
+# args = parser.parse_args(["testies.txt"])
+args = parser.parse_args()
 
-
-
-
-sudoku = lecture.Fichier(args.fichier.readlines())
-
-if args.manuel:
-    print("Mode Manuel")
-if args.automatique:
-    print("Mode Automatique")
+lignesfichier = lecture.lecture_fichier(args.fichier.readlines())
 print("Sudoku Pythonesque \n \n")
 
-start_time = time.time()
-# sudoku.imprimmer()
-grille1 = solver.Grille(sudoku.lignesfichier)
-print("Grile originale \n \n " + str(grille1))
+if args.mode == 'manuel':
+    print('Élie')
 
-grille1.cases = grille1.reduire(grille1.reduire2(grille1.cases))
-
-print("Grille réduite \n \n" + str(grille1) + "\n \n")
-grille1.recherche(grille1.cases)
-print("Temps totales d'exécution du programme : %.4f secondes" % (time.time() - start_time))
-print(('OK'))
-print(grille1)
-
-for l in grille1.lignes:
-    for c in grille1.colonnes:
-        print(grille1.cases[l][c], end="")
-
-
-
-#print(grille1.resolu())
-#print(grille1.cases)
+if args.mode == 'automatique' and args.affichage == 'textuel':
+    for i in range(0, len(lignesfichier) - 81, 81):
+        start_time = time.time()
+        grille = solver.Grille(lignesfichier[i:i + 81])
+        print("Grile originale \n \n " + str(grille))
+        grille.cases = grille.reduire(grille.reduire2(grille.reduire(grille.cases)))
+        grille.recherche(grille.cases)
+        print("\n Grille résolue")
+        print(grille)
+        print("Temps total d'exécution du programme : %.4f secondes \n" % (time.time() - start_time))
