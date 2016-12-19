@@ -31,7 +31,7 @@ args = parser.parse_args()
 lignesfichier = lecture.lecture_fichier(args.fichier.readlines())
 print("Sudoku Pythonesque \n \n")
 
-if args.mode == 'manuel':
+if args.mode == 'manuel' and args.affichage == 'textuel':
     print('Élie')
 
 if args.mode == 'automatique' and args.affichage == 'textuel':
