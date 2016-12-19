@@ -36,7 +36,6 @@ class Grille:
                 else:
                     self.cases[l][c] = lignesfichier[compte]
                 compte += 1
-        self.cases = self.reduire()
 
     def __str__(self):
         """
@@ -49,7 +48,10 @@ class Grille:
         for l in self.lignes:
             liste = []
             for c in self.colonnes:
-                liste.append(self.cases[l][c])
+                if self.cases[l][c] != '123456789':
+                    liste.append(self.cases[l][c])
+                else:
+                    liste.append('.')
             res += ' ' + l + ' \u2551 {0[0]}  {0[1]}  {0[2]} \u2551 {0[3]}  {0[4]}  {0[5]} \u2551 {0[6]}  {0[7]}  {0[8]} \u2551'.format(
                 liste) + '\n'
             compte += 1
