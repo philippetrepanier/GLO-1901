@@ -1,9 +1,9 @@
 """
     Fichier principal du projet Sudoku!
 """
-__auteur__ = "IDUL"
+__auteur__ = "JEROY154"
 __date__ = "2016-12-09"
-__coequipiers__ = "IDUL", "IDUL"
+__coequipiers__ = "PHTRE60", "CETRE83"
 
 import argparse
 import time

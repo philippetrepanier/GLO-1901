@@ -1,9 +1,9 @@
 """
     Ce fichier est responsable de la résolution du sudoku par backtracking
 """
-__auteur__ = "IDUL"
+__auteur__ = "PHTRE60"
 __date__ = "2016-12-09"
-__coequipiers__ = "IDUL", "IDUL"
+__coequipiers__ = "JEROY154", "CETRE83"
 
 import itertools
 from copy import deepcopy
