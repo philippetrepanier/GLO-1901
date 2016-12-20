@@ -30,7 +30,6 @@ class Affichage:
                 cases = Label(frame, width=3, height=2, bg=self.couleur_sudoku(i, j), fg="Black",
                               relief=self.texturecase(i, j), font=("Times", 15), text=self.texte(i, j))
                 cases.grid(row=i, column=j)
-
         self.root.mainloop()
 
     def couleur_sudoku(self, i, j):

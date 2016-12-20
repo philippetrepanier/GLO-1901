@@ -11,6 +11,7 @@ from colorama import init, Fore
 
 init(convert=True)
 
+
 class Grille:
     """
         Classe grille qui est responsable des opérations sur la grille et du stockage des valeurs
@@ -131,11 +132,11 @@ class Grille:
         return grilleréduite
 
     def recherche(self, grille=None):
-        '''
+        """
             Fonction de recherche qui permet de résoudre la grille de sudoku
         :param grille:
         :return:
-        '''
+        """
         if grille is None:
             grille = self.cases
         if grille is False:
