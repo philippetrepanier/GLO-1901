@@ -196,3 +196,49 @@ class Grille:
                 return False
         return True
 
+    def valide(self, grille=None):
+        """
+            Permet de vérifier s'il y a une incohérence dans la grille
+        :return: Retourne False si il y a contradiction, sinon True
+        """
+        if grille is None:
+            grille = self.cases
+        if grille is False:
+            return False
+        for v in self.colonnes:
+            for c in self.colonnes:
+                if sum(1 for d in self.cases if self.cases[d][c] == v) > 1:
+                    return False
+        for v in self.colonnes:
+            for d in self.lignes:
+                if sum(1 for c in self.colonnes if self.cases[d][c] == v) > 1:
+                    return False
+        return True
+
+    def entrée(self, grille=None):
+        if grille is None:
+            grille = self.cases
+        if grille is False:
+            return False
+        ligne = input('Entrez la ligne (A-G): ')
+        if ligne.upper() in self.lignes:
+            colonne = input('Entrez la colonne (1-9): ')
+            if colonne in self.colonnes:
+                chiffre = input('Entrez votre chiffre: ')
+                grille[ligne.upper()][colonne] = str(chiffre)
+                if self.valide():
+                    print(self)
+                    self.entrée()
+                elif self.resolu():
+                    print(self)
+                    print('Le sudoku est résolu! Bravo :)')
+                else:
+                    print('Chiffre non valide')
+                    grille[ligne.upper()][colonne] = '123456789'
+                    self.entrée()
+            else:
+                print('Colonne non valide')
+                self.entrée()
+        else:
+            print('Ligne non valide')
+            self.entrée()

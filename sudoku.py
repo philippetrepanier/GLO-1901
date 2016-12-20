@@ -32,13 +32,16 @@ lignesfichier = lecture.lecture_fichier(args.fichier.readlines())
 print("Sudoku Pythonesque \n \n")
 
 if args.mode == 'manuel' and args.affichage == 'textuel':
-    print('Élie')
+    start_time = time.time()
+    grille = solver.Grille(lignesfichier[0:81])
+    print("Grile originale \n \n " + str(grille))
+    grille.entrée(grille.cases)
 
 if args.mode == 'automatique' and args.affichage == 'textuel':
     for i in range(0, len(lignesfichier) - 81, 81):
         start_time = time.time()
         grille = solver.Grille(lignesfichier[i:i + 81])
-        print("Grile originale \n \n " + str(grille))
+        print("Grile originale \n \n" + str(grille))
         grille.cases = grille.reduire(grille.reduire2(grille.reduire(grille.cases)))
         grille.recherche(grille.cases)
         print("\n Grille résolue")
