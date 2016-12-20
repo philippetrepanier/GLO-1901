@@ -39,6 +39,7 @@ class Grille:
                     self.cases[l][c] = lignesfichier[compte]
                 compte += 1
         self.original = deepcopy(self.cases)
+        self.couleur = deepcopy(self.cases)
 
     def __str__(self):
         """
@@ -171,7 +172,6 @@ class Grille:
             pour chaque colonne.
             La vérification est faite avec une somme vérifiant l'unicité de la solution.
 
-            Il faut implanter une vérification similaire en carrés
         :return: Retourne False si il y a contradiction, sinon True
         """
         if grille is None:
@@ -210,11 +210,20 @@ class Grille:
             return False
         for v in self.colonnes:
             for c in self.colonnes:
-                if sum(1 for d in self.cases if self.cases[d][c] == v) > 1:
+                if sum(1 for d in grille if grille[d][c] == v) > 1:
                     return False
         for v in self.colonnes:
             for d in self.lignes:
-                if sum(1 for c in self.colonnes if self.cases[d][c] == v) > 1:
+                if sum(1 for c in self.colonnes if grille[d][c] == v) > 1:
+                    return False
+        for v in self.colonnes:
+            for l, c in self.carrés:
+                somme = 0
+                for l2 in l:
+                    for c2 in c:
+                        if grille[l2][c2] == v:
+                            somme += 1
+                if somme > 1:
                     return False
         return True
 
@@ -232,17 +241,22 @@ class Grille:
                     print('Le chiffre entré est invalide')
                     self.entrée()
                 else:
-                    grille[ligne.upper()][colonne] = str(Fore.GREEN + chiffre + Fore.RESET)
+                    self.couleur[ligne.upper()][colonne] = str(chiffre)
+                    self.cases[ligne.upper()][colonne] = str(Fore.GREEN + chiffre + Fore.RESET)
                     if self.original[ligne.upper()][colonne] == '123456789':
-                        if self.valide():
+                        if self.resolu(self.couleur):
+                            print(self)
+                            print('Le sudoku est résolu! Bravo :)')
+                            return True
+                        if self.valide(self.couleur):
                             print('\n' + str(self))
                             self.entrée()
-                        elif self.resolu():
+                        if self.resolu(self.couleur):
                             print(self)
-                            print('Le sudoku est résolu! Bravo 🙂')
+                            print('Le sudoku est résolu! Bravo :)')
                         else:
                             print('Chiffre non valide')
-                            grille[ligne.upper()][colonne] = '123456789'
+                            self.cases[ligne.upper()][colonne] = '123456789'
                             self.entrée()
                     else:
                         print('Vous ne pouvez pas modifier ce chiffre!')

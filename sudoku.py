@@ -36,6 +36,7 @@ if args.mode == 'manuel' and args.affichage == 'textuel':
     grille = solver.Grille(lignesfichier[0:81])
     print("Grile originale \n \n " + str(grille))
     grille.entrée(grille.cases)
+    print("Temps total de résolution : %.4f secondes \n" % (time.time() - start_time))
 
 if args.mode == 'automatique' and args.affichage == 'textuel':
     for i in range(0, len(lignesfichier) - 81, 81):
