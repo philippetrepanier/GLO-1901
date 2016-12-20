@@ -131,6 +131,11 @@ class Grille:
         return grilleréduite
 
     def recherche(self, grille=None):
+        '''
+            Fonction de recherche qui permet de résoudre la grille de sudoku
+        :param grille:
+        :return:
+        '''
         if grille is None:
             grille = self.cases
         if grille is False:
@@ -151,6 +156,11 @@ class Grille:
             self.recherche(self.reduire2(self.reduire(griller)))
 
     def minimum(self, grille=None):
+        '''
+            Fonction qui permet de trouver l'emplacement où le nombre de possibilités est minimal
+        :param grille:
+        :return:
+        '''
         if grille is None:
             grille = self.cases
         if grille is False:
@@ -228,6 +238,11 @@ class Grille:
         return True
 
     def entrée(self, grille=None):
+        '''
+            Fonction qui permet d'accepter l'entrée de la console
+        :param grille:
+        :return:
+        '''
         if grille is None:
             grille = self.cases
         if grille is False:

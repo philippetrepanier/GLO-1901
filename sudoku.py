@@ -9,8 +9,7 @@ import argparse
 import time
 import solver
 import lecture
-
-# import affichage
+import affichage
 
 parser = argparse.ArgumentParser(
     description=("Sudoku pythonesque! Ce programme permet de résoudre des Sudokus. "
@@ -48,3 +47,10 @@ if args.mode == 'automatique' and args.affichage == 'textuel':
         print("\n Grille résolue")
         print(grille)
         print("Temps total d'exécution du programme : %.4f secondes \n" % (time.time() - start_time))
+
+if args.mode == 'manuel' and args.affichage == 'graphique':
+    start_time = time.time()
+    grille = solver.Grille(lignesfichier[0:81])
+    affichage = affichage.Affichage(grille.cases)
+    grille.entrée(grille.cases)
+    print("Temps total de résolution : %.4f secondes \n" % (time.time() - start_time))
