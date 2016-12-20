@@ -54,3 +54,15 @@ if args.mode == 'manuel' and args.affichage == 'graphique':
     affichage = affichage.Affichage(grille.cases)
     grille.entrée(grille.cases)
     print("Temps total de résolution : %.4f secondes \n" % (time.time() - start_time))
+
+if args.mode == 'automatique' and args.affichage == 'graphique':
+    for i in range(0, len(lignesfichier) - 81, 81):
+        start_time = time.time()
+        grille = solver.Grille(lignesfichier[i:i + 81])
+        print("Grile originale \n \n" + str(grille))
+        grille.cases = grille.reduire(grille.reduire2(grille.reduire(grille.cases)))
+        grille.recherche(grille.cases)
+        print("\n Grille résolue")
+        print(grille)
+        affichage2 = affichage.Affichage(grille.cases)
+        print("Temps total d'exécution du programme : %.4f secondes \n" % (time.time() - start_time))
