@@ -4,28 +4,19 @@ Résolveur de sudoku fait en python 3
 
 ### Options ###
 
-* manuel
-* automatique
+* Manuel
+* Automatique
 * Graphique
 * Console
 
 
-### How do I get set up? ###
+### Mode Manuel ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+En mode manuel l'utilisateur entre les valeurs du Sudoku.
+L'utilisateur choisi la ligne, la colonne et ensuite la valeur à entrer.
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+### Mode Automatique ###
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+En mode automatique le programme génère la solution et l'affiche dans la console
+et dans Tkinter.
