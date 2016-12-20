@@ -1,9 +1,9 @@
 """
     Fichier responsable de l'affichage graphique
 """
-__auteur__ = "IDUL"
+__auteur__ = "CETRE83"
 __date__ = "2016-12-09"
-__coequipiers__ = "IDUL", "IDUL"
+__coequipiers__ = "JEROY154", "PHTRE60"
 from tkinter import *
 
 
