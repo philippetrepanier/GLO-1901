@@ -7,7 +7,9 @@ __coequipiers__ = "IDUL", "IDUL"
 
 import itertools
 from copy import deepcopy
+from colorama import init, Fore
 
+init(convert=True)
 
 class Grille:
     """
@@ -36,6 +38,7 @@ class Grille:
                 else:
                     self.cases[l][c] = lignesfichier[compte]
                 compte += 1
+        self.original = deepcopy(self.cases)
 
     def __str__(self):
         """
@@ -220,22 +223,30 @@ class Grille:
             grille = self.cases
         if grille is False:
             return False
-        ligne = input('Entrez la ligne (A-G): ')
-        if ligne.upper() in self.lignes:
-            colonne = input('Entrez la colonne (1-9): ')
-            if colonne in self.colonnes:
+        ligne = input('Entrez la ligne (A-I): ')
+        if ligne.upper() in self.lignes and not ligne == '':
+            colonne = input("Entrez la colonne (1-9): ")
+            if colonne in self.colonnes and not colonne == '':
                 chiffre = input('Entrez votre chiffre: ')
-                grille[ligne.upper()][colonne] = str(chiffre)
-                if self.valide():
-                    print(self)
+                if chiffre not in self.colonnes or chiffre == '':
+                    print('Le chiffre entré est invalide')
                     self.entrée()
-                elif self.resolu():
-                    print(self)
-                    print('Le sudoku est résolu! Bravo :)')
                 else:
-                    print('Chiffre non valide')
-                    grille[ligne.upper()][colonne] = '123456789'
-                    self.entrée()
+                    grille[ligne.upper()][colonne] = str(Fore.GREEN + chiffre + Fore.RESET)
+                    if self.original[ligne.upper()][colonne] == '123456789':
+                        if self.valide():
+                            print('\n' + str(self))
+                            self.entrée()
+                        elif self.resolu():
+                            print(self)
+                            print('Le sudoku est résolu! Bravo 🙂')
+                        else:
+                            print('Chiffre non valide')
+                            grille[ligne.upper()][colonne] = '123456789'
+                            self.entrée()
+                    else:
+                        print('Vous ne pouvez pas modifier ce chiffre!')
+                        self.entrée()
             else:
                 print('Colonne non valide')
                 self.entrée()
