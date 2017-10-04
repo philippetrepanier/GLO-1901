@@ -1,13 +1,13 @@
 # README #
-
-Résolveur de sudoku fait en python 3
+# Introduction à la programmation avec Python GLO-1901
+## Résolveur de sudoku en python 3 | Python 3 Sudoku solver
 
 ### Options ###
 
 * Manuel
 * Automatique
-* Graphique
-* Console
+* Graphique (GUI)
+* Console (CLI)
 
 
 ### Mode Manuel ###
